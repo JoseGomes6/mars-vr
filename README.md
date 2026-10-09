@@ -1,5 +1,9 @@
 # A Journey Across Mars
 
+José Pedro Rodrigues Gomes - 2025171142
+
+Unidade curricular: Ambientes de Realidade Virtual Interativos
+
 Trabalho de realidade virtual: visita virtual 360º a Marte, feita com A-Frame.
 
 ## Objetivo
