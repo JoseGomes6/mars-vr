@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A Journey Across Mars</title>
+    <meta
+      name="description"
+      content="A 360º virtual visit to the surface of Mars with NASA's Perseverance and Curiosity rovers, built with A-Frame."
+    />
+    <script src="lib/aframe.min.js"></script>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <section id="intro">
+      <div class="planet" aria-hidden="true"></div>
+      <div class="intro-inner">
+        <p class="eyebrow"><i></i>360º Virtual Tour</p>
+        <h1>A Journey<br />Across <span>Mars</span></h1>
+        <p class="tagline">
+          Stand beside NASA’s rovers and look around the crater-scarred
+          landscapes of the Red Planet.
+        </p>
+        <button id="start" class="btn-primary" type="button">
+          Start experience
+        </button>
+        <button id="start-vr" class="btn-ghost" type="button" hidden>
+          Enter VR
+        </button>
+        <p class="intro-note">
+          Drag to look around · Click the glowing portals to travel · Press I
+          for information
+        </p>
+        <span class="ruler" aria-hidden="true"></span>
+      </div>
+      <p class="credit">
+        Mars: ESA &amp; MPS for OSIRIS Team (Rosetta) ·
+        <a
+          href="https://commons.wikimedia.org/wiki/File:OSIRIS_Mars_true_color.jpg"
+          target="_blank"
+          rel="noopener"
+          >CC BY-SA 3.0 IGO</a
+        ><br />
+        Sky: ESA/Gaia/DPAC ·
+        <a
+          href="https://commons.wikimedia.org/wiki/File:Gaia%27s_all-sky_view_(ESA_Gaia_DR2_AllSky_Brightness_Colour_black_bg_8k).jpg"
+          target="_blank"
+          rel="noopener"
+          >CC BY 4.0</a
+        >
+      </p>
+    </section>
+
+    <header id="hud" class="hidden">
+      <div class="hud-place">
+        <span id="hud-count">01 / 03</span>
+        <span id="hud-title">PERSEVERANCE</span>
+        <span id="hud-location">Mars · Perseverance rover, Sol 1500</span>
+      </div>
+      <div class="hud-actions">
+        <button
+          id="btn-info"
+          type="button"
+          aria-label="Show or hide information panel (I)"
+          title="Show / hide information (I)"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 11v6M12 7.5v.01" />
+          </svg>
+        </button>
+        <button
+          id="btn-menu"
+          type="button"
+          aria-label="Back to menu"
+          title="Back to menu"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 11l8-7 8 7M6 10v10h4v-6h4v6h4V10" />
+          </svg>
+        </button>
+      </div>
+    </header>
+    <p id="hint" class="hidden">
+      Drag to look around · Click a portal to move on · I = information
+    </p>
+
+    <a-scene
+      id="scene"
+      cursor="rayOrigin: mouse"
+      raycaster="objects: .clickable; far: 30"
+      renderer="colorManagement: true"
+      vr-mode-ui="enabled: true"
+      loading-screen="enabled: false"
+    >
+      <a-sky
+        id="sky"
+        rotation="0 -90 0"
+        color="#000"
+        material="shader: flat"
+      ></a-sky>
+
+      <a-entity id="world" position="0 1.6 0"></a-entity>
+
+      <a-entity id="rig">
+        <a-camera
+          id="cam"
+          position="0 1.6 0"
+          wasd-controls-enabled="false"
+          look-controls="reverseMouseDrag: false"
+        >
+          <a-entity
+            id="reticle"
+            visible="false"
+            position="0 0 -1"
+            cursor="fuse: true; fuseTimeout: 1800"
+            raycaster="objects: .clickable; far: 30; enabled: false"
+            geometry="primitive: ring; radiusInner: 0.012; radiusOuter: 0.02"
+            material="color: #f6e9dc; shader: flat; opacity: 0.9"
+            animation__fuse="property: scale; startEvents: fusing; from: 1 1 1; to: 0.45 0.45 0.45; dur: 1800; easing: linear"
+            animation__reset="property: scale; startEvents: mouseleave, click; to: 1 1 1; dur: 150"
+          ></a-entity>
+
+          <a-sphere
+            id="fade"
+            radius="0.3"
+            segments-width="16"
+            segments-height="12"
+            material="color: #000; shader: flat; side: back; transparent: true; opacity: 1; depthTest: false"
+          ></a-sphere>
+        </a-camera>
+
+        <a-entity
+          id="hand-l"
+          laser-controls="hand: left"
+          raycaster="objects: .clickable; far: 30; lineColor: #e0793a; lineOpacity: 0.7"
+        ></a-entity>
+        <a-entity
+          id="hand-r"
+          laser-controls="hand: right"
+          raycaster="objects: .clickable; far: 30; lineColor: #e0793a; lineOpacity: 0.7"
+        ></a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
